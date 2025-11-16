@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.tickets.gui.MainController">
+
+    <top>
+        <Label text="Ticket Reservation System"
+               BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="10" bottom="10" left="10" right="10"/>
+            </padding>
+        </Label>
+    </top>
+
+    <center>
+        <GridPane hgap="10" vgap="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <columnConstraints>
+                <ColumnConstraints prefWidth="300"/>
+                <ColumnConstraints prefWidth="300"/>
+            </columnConstraints>
+
+            <Label text="Event type:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="eventTypeCombo"
+                      GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Seating strategy:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="strategyCombo"
+                      GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Add-ons:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <VBox spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <children>
+                    <CheckBox fx:id="baggageCheck" text="Extra baggage"/>
+                    <CheckBox fx:id="insuranceCheck" text="Insurance"/>
+                </children>
+            </VBox>
+
+            <!-- NEW BUTTON HERE -->
+            <Button text="Show free seats"
+                    fx:id="showSeatsButton"
+                    GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+
+            <Button text="Book ticket"
+                    fx:id="bookButton"
+                    GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Label text="Result:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextArea fx:id="resultArea"
+                      prefRowCount="5"
+                      GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        </GridPane>
+    </center>
+
+    <bottom>
+        <VBox spacing="5">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <children>
+                <Label text="Notifications:"/>
+                <ListView fx:id="notificationList"/>
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>
