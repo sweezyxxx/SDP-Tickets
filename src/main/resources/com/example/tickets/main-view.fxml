@@ -9,10 +9,9 @@
             fx:controller="com.example.tickets.gui.MainController">
 
     <top>
-        <Label text="Ticket Reservation System"
-               BorderPane.alignment="CENTER">
+        <Label text="Ticket Reservation System" BorderPane.alignment="CENTER">
             <padding>
-                <Insets top="10" bottom="10" left="10" right="10"/>
+                <Insets top="10" bottom="10"/>
             </padding>
         </Label>
     </top>
@@ -22,40 +21,35 @@
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
+
             <columnConstraints>
-                <ColumnConstraints prefWidth="300"/>
+                <ColumnConstraints prefWidth="200"/>
                 <ColumnConstraints prefWidth="300"/>
             </columnConstraints>
 
-            <Label text="Event type:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <ComboBox fx:id="eventTypeCombo"
-                      GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="Event:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="eventCombo" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-            <Label text="Seating strategy:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <ComboBox fx:id="strategyCombo"
-                      GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="Strategy:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="strategyCombo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
             <Label text="Add-ons:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
             <VBox spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="1">
                 <children>
-                    <CheckBox fx:id="baggageCheck" text="Extra baggage"/>
+                    <CheckBox fx:id="baggageCheck" text="Baggage"/>
                     <CheckBox fx:id="insuranceCheck" text="Insurance"/>
                 </children>
             </VBox>
 
-            <!-- NEW BUTTON HERE -->
-            <Button text="Show free seats"
-                    fx:id="showSeatsButton"
-                    GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-
-            <Button text="Book ticket"
-                    fx:id="bookButton"
+            <Button text="Book Ticket" fx:id="bookButton"
                     GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-            <Label text="Result:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-            <TextArea fx:id="resultArea"
-                      prefRowCount="5"
-                      GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            <Button text="Show Free Seats" fx:id="showSeatsButton"
+                    GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            <Label text="Result:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextArea fx:id="resultArea" prefRowCount="7"
+                      GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 
         </GridPane>
     </center>
@@ -67,9 +61,9 @@
             </padding>
             <children>
                 <Label text="Notifications:"/>
-                <ListView fx:id="notificationList"/>
+                <ListView fx:id="notificationList" prefHeight="150"/>
             </children>
         </VBox>
     </bottom>
-    <Button fx:id="loadExternalButton" text="Load external flights"/>
+
 </BorderPane>
