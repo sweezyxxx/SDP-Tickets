@@ -8,6 +8,12 @@ import com.example.tickets.strategy.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.util.List;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Insets;
+import javafx.scene.control.TextArea;
+
 
 
 public class MainController {
@@ -17,14 +23,13 @@ public class MainController {
 
     @FXML private CheckBox baggageCheck;
     @FXML private CheckBox insuranceCheck;
-    @FXML private CheckBox vipCheck;
 
     @FXML private Button bookButton;
 
     @FXML private TextArea resultArea;
     @FXML private ListView<String> notificationList;
     @FXML private Button showSeatsButton;
-
+    @FXML private Button loadExternalButton;
 
     private final NotificationCenter center = new NotificationCenter();
     private final ReservationSystemFacade facade = new ReservationSystemFacade(center);
@@ -37,7 +42,7 @@ public class MainController {
     public void initialize() {
 
         showSeatsButton.setOnAction(e -> showFreeSeats());
-
+        loadExternalButton.setOnAction(e -> loadExternal());
 
         for (char row = 'A'; row <= 'C'; row++) {
             for (int col = 1; col <= 3; col++) {
@@ -164,8 +169,7 @@ public class MainController {
                 event,
                 strategy,
                 baggageCheck.isSelected(),
-                insuranceCheck.isSelected(),
-                vipCheck.isSelected()
+                insuranceCheck.isSelected()
         );
 
         if (ticket == null) {
@@ -178,23 +182,13 @@ public class MainController {
         );
 
     }
-    private String formatSeats(List<Seat> seats, String title) {
-        if (seats.isEmpty()) return "";
 
-        StringBuilder sb = new StringBuilder(title + ":\n");
-        for (Seat s : seats) {
-            sb.append("  - ")
-                    .append(s.getId())
-                    .append(" (")
-                    .append(s.getBasePrice())
-                    .append("₸)\n");
-        }
-        sb.append("\n");
-        return sb.toString();
+    private void showFreeSeats() {
+            Event event = getEvent(eventTypeCombo.getValue());
+            openFreeSeatsWindow(event);
     }
 
     private void openFreeSeatsWindow(Event event) {
-
         // создаём новое окно
         Stage stage = new Stage();
         stage.setTitle("Free Seats");
@@ -248,7 +242,17 @@ public class MainController {
         stage.setScene(new Scene(root, 350, 400));
         stage.show();
     }
+    private void loadExternal() {
+        List<Event> flights = facade.loadExternalEvents();
 
+        StringBuilder sb = new StringBuilder("External flights:\n");
 
+        for (Event e : flights) {
+            sb.append(e.getName())
+                    .append(" [").append(e.getType()).append("]\n");
+        }
+
+        resultArea.setText(sb.toString());
+    }
 
 }

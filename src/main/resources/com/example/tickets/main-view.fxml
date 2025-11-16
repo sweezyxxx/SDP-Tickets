@@ -71,4 +71,5 @@
             </children>
         </VBox>
     </bottom>
+    <Button fx:id="loadExternalButton" text="Load external flights"/>
 </BorderPane>

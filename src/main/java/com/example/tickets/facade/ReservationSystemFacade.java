@@ -1,5 +1,6 @@
 package com.example.tickets.facade;
 
+import com.example.tickets.adapter.AirlineApiAdapter;
 import com.example.tickets.decorator.*;
 import com.example.tickets.factory.*;
 import com.example.tickets.model.Event;
@@ -7,6 +8,9 @@ import com.example.tickets.model.Seat;
 import com.example.tickets.observer.NotificationCenter;
 import com.example.tickets.model.User;
 import com.example.tickets.strategy.SeatingStrategy;
+import com.example.tickets.adapter.ExternalTicketProvider;
+
+import java.util.List;
 
 public class ReservationSystemFacade {
 
@@ -20,8 +24,7 @@ public class ReservationSystemFacade {
                              Event event,
                              SeatingStrategy strategy,
                              boolean baggage,
-                             boolean insurance,
-                             boolean vip) {
+                             boolean insurance) {
 
         Seat seat = strategy.chooseSeat(event);
 
@@ -31,9 +34,7 @@ public class ReservationSystemFacade {
             return null;
         }
 
-        // ⭐ используем твой метод bookSeat
         if (!event.bookSeat(seat)) {
-            // место успели занять параллельно (на всякий случай)
             center.notifyAll("Seat " + seat.getId() + " is already taken.");
             return null;
         }
@@ -56,4 +57,10 @@ public class ReservationSystemFacade {
 
         return ticket;
     }
+    private ExternalTicketProvider externalProvider = new AirlineApiAdapter();
+
+    public List<Event> loadExternalEvents() {
+        return externalProvider.fetchExternalEvents();
+    }
+
 }
