@@ -23,7 +23,7 @@ public class ReservationSystemFacade {
                              boolean baggage,
                              boolean insurance) {
 
-        // 1 — новое бронирование через event.bookSeat(strategy)
+        // 1 — выбираем место
         Seat seat = event.bookSeat(strategy);
 
         if (seat == null) {
@@ -35,22 +35,21 @@ public class ReservationSystemFacade {
         // 2 — создаём базовый билет
         TicketFactory factory =
                 switch (event.getType()) {
-                    case CONCERT -> new ConcertTicketFactory();
-                    case PLANE -> new PlaneTicketFactory();
+                    case Concert -> new ConcertTicketFactory();
+                    case Plane -> new PlaneTicketFactory();
                     default -> new CinemaTicketFactory();
                 };
 
         Ticket ticket = factory.create(event, seat);
 
-        // 3 — доп.услуги (декораторы)
-        if (baggage) ticket = new BaggageDecorator(ticket);
+        if (baggage)   ticket = new BaggageDecorator(ticket);
         if (insurance) ticket = new InsuranceDecorator(ticket);
 
-        // 4 — уведомление
         center.notifyAll(
-                "User " + user.getName() +
-                        " booked " + seat.getId() +
-                        " for event " + event.getName()
+                user.getName() + " booked " +
+                        seat.getId() + " (" + event.getName() + ")" +
+                        " | " + ticket.getDescription() +
+                        " | Total: " + ticket.getPrice() + "₸"
         );
 
         return ticket;

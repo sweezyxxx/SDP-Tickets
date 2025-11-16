@@ -35,21 +35,21 @@ public class MainController {
     private final List<Event> allEvents = new ArrayList<>();
 
     private final Event concert =
-            new EventBuilder("CONCERT", EventType.CONCERT)
+            new EventBuilder("Concert", EventType.Concert)
                     .addRow('A', 3, 40000)  // дорогой ряд
                     .addRow('B', 3, 25000)
                     .addRow('C', 3, 15000)  // самый дешёвый ряд
                     .build();
 
     private final Event plane =
-            new EventBuilder("PLANE", EventType.PLANE)
+            new EventBuilder("Plane", EventType.Plane)
                     .addRow('A', 3, 55000)
                     .addRow('B', 3, 45000)
                     .addRow('C', 3, 30000)
                     .build();
 
     private final Event cinema =
-            new EventBuilder("CINEMA", EventType.CINEMA)
+            new EventBuilder("Cinema", EventType.Cinema)
                     .addRow('A', 3, 7000)   // ближе к экрану = дороже
                     .addRow('B', 3, 5500)
                     .addRow('C', 3, 10000)  // VIP диваны
@@ -86,7 +86,7 @@ public class MainController {
         resultArea.clear();
 
         Event event = eventCombo.getValue();
-        User user = new User("Client1");
+        User user = new User("Temirlan");
 
         Ticket ticket = facade.bookTicket(
                 user,
